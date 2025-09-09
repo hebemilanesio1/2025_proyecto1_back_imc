@@ -18,11 +18,13 @@ export class ImcEntity {
   @Column()
   categoria: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamptz' })
   fecha: Date;
 
   @BeforeInsert()
   setFecha() {
     this.fecha = moment().tz('America/Argentina/Buenos_Aires').toDate();
   }
+
+  
 }
