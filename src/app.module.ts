@@ -4,18 +4,21 @@ import { ImcModule } from './module/imc/imc.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ImcEntity } from './module/imc/entities/imc.entity';
+import * as dotenv from 'dotenv';
+
+dotenv.config(); // carga variables del .env
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'hebe456',
-      database: 'imc_db',
+      type: 'postgres',
+      host: process.env.DB_HOST || '',
+      port: parseInt(process.env.DB_PORT || '5432'),
+      username: process.env.DB_USER || '',
+      password: process.env.DB_PASSWORD || '',
+      database: process.env.DB_NAME || '',
       entities: [ImcEntity],
-      synchronize: false, // sincroniza la BD automáticamente (solo desarrollo)
+      synchronize: false,
     }),
     ImcModule,
   ],
