@@ -12,28 +12,40 @@ export class ImcService {
   ) {}
 
   async calcularImc(data: CalcularImcDto): Promise<ImcEntity> {
-    const { altura, peso } = data;
-    const imc = peso / (altura * altura);
-    const imcRedondeado = Math.round(imc * 100) / 100;
-
-    let categoria: string;
-    if (imc < 18.5) categoria = 'Bajo peso';
-    else if (imc < 25) categoria = 'Normal';
-    else if (imc < 30) categoria = 'Sobrepeso';
-    else categoria = 'Obeso';
-
-    const resultado = this.imcRepository.create({
-      peso,
-      altura,
-      imc: imcRedondeado,
-      categoria,
-    });
-
-    return this.imcRepository.save(resultado);
+    try {
+      const { altura, peso } = data;
+      const imc = peso / (altura * altura);
+      const imcRedondeado = Math.round(imc * 100) / 100;
+  
+      let categoria: string;
+      if (imc < 18.5) categoria = 'Bajo peso';
+      else if (imc < 25) categoria = 'Normal';
+      else if (imc < 30) categoria = 'Sobrepeso';
+      else categoria = 'Obeso';
+  
+      const resultado = this.imcRepository.create({
+        peso,
+        altura,
+        imc: imcRedondeado,
+        categoria,
+      });
+  
+      return await this.imcRepository.save(resultado);
+    } catch (error) {
+      console.error("Error guardando IMC:", error);
+      throw error; // así el controller devuelve 500 con el error real
+    }
   }
+  
 
   async historial(): Promise<ImcEntity[]> {
-    return this.imcRepository.find({ order: { fecha: 'DESC' } });
+    try {
+      return await this.imcRepository.find({ order: { fecha: 'DESC' } });
+    } catch (error) {
+      console.error("Error obteniendo historial:", error);
+      throw error;
+    }
   }
+  
 }
 

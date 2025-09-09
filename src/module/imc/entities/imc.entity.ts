@@ -5,18 +5,18 @@ export class ImcEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('decimal', { precision: 5, scale: 2 })
+  @Column('float')
   peso: number;
 
-  @Column('decimal', { precision: 5, scale: 2 })
+  @Column('float')
   altura: number;
 
-  @Column('decimal', { precision: 5, scale: 2 })
+  @Column('float')
   imc: number;
 
   @Column()
   categoria: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   fecha: Date;
 }
