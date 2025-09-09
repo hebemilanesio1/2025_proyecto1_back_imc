@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import * as moment from 'moment-timezone';
 
 @Entity('imc')
 export class ImcEntity {
@@ -17,6 +18,11 @@ export class ImcEntity {
   @Column()
   categoria: string;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @Column({ type: 'timestamp' })
   fecha: Date;
+
+  constructor() {
+    // Seteo la fecha con hora de Argentina
+    this.fecha = moment().tz('America/Argentina/Buenos_Aires').toDate();
+  }
 }
