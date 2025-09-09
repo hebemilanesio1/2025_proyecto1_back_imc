@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
-import * as moment from 'moment-timezone';
 
 @Entity('imc')
 export class ImcEntity {
@@ -18,13 +17,8 @@ export class ImcEntity {
   @Column()
   categoria: string;
 
-  @Column({ type: 'timestamptz' })
+  @Column({ type: 'timestamp' })
   fecha: Date;
-
-  @BeforeInsert()
-  setFecha() {
-    this.fecha = moment().tz('America/Argentina/Buenos_Aires').toDate();
-  }
 
   
 }
