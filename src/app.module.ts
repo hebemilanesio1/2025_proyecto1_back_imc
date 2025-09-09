@@ -15,7 +15,7 @@ import { ImcEntity } from './module/imc/entities/imc.entity';
       password: 'hebe456',
       database: 'imc_db',
       entities: [ImcEntity],
-      synchronize: true, // sincroniza la BD automáticamente (solo desarrollo)
+      synchronize: false, // sincroniza la BD automáticamente (solo desarrollo)
     }),
     ImcModule,
   ],
